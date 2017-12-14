@@ -7,8 +7,6 @@ BASE_DIRECTORY = os.path.dirname(os.path.dirname(__file__))  # src/ directory
 
 sys.path.insert(1, os.path.join(BASE_DIRECTORY, 'apps'))
 
-LOG_DIRECTORY = os.path.join(os.path.dirname(BASE_DIRECTORY), 'logs')
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 SECRET_FILE = os.path.normpath(os.path.join(BASE_DIRECTORY, 'SECRET.key'))
@@ -24,9 +22,7 @@ SESSION_COOKIE_AGE = 31536000
 INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
-    'django_fsm',
-    'fsm_admin',
-    'flow.apps.FlowConfig',
+    'accounts.apps.AccountConfig',
 
 ]
 
@@ -97,58 +93,18 @@ TEMPLATES = [
     },
 ]
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'standard': {
-            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
-        },
-    },
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-        },
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse',
-        },
-    },
-    'handlers': {
-        'console': {
-            'level': 'INFO',
-            'filters': ['require_debug_true'],
-            'class': 'logging.StreamHandler',
-            'formatter': 'standard'
-        },
-        'application_logs': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(LOG_DIRECTORY, 'applications.log'),
-            'formatter': 'standard',
-        },
-        'debug_log_file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(LOG_DIRECTORY, 'project.log'),
-            'formatter': 'standard',
-        }
-    },
-    'root': {
-        'handlers': ['console', 'debug_log_file', 'application_logs'],
-        'level': 'DEBUG',
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'propagate': True,
-        },
-        'django.request': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': False,
-        }
-    }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+    'DATETIME_FORMAT': "%Y-%m-%dT%H:%M:%S%z",
+    'DATE_FORMAT': "%Y-%m-%d",
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning'
 }
 
 try:

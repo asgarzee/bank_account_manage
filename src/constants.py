@@ -1,13 +1,13 @@
-CREATED = 'CRET'
-PICK = 'PICK'
-RECEIVE = 'RECD'
-SHELVE = 'SLVD'
-READY_TO_DISPATCH = 'RTDP'
-DISPATCH = 'DSPD'
-DELIVER = 'DLVD'
+RUPEES = 'Rs'
+CURRENCY_CHOICES = (
+    (RUPEES, 'Rupees'),
+)
+CREDIT_TRANSFER_TYPE = 'credit'
+DEBIT_TRANSFER_TYPE = 'debit'
+TRANSFER_TRANSFER_TYPE = 'transfer'
 
-API_RESPONSE = {
-    'data': {},
-    'success': True,
-    'message': 'Successful'
-}
+TRANSACTION_TYPES_CHOICES = (
+    (CREDIT_TRANSFER_TYPE, 'Credit'),
+    (DEBIT_TRANSFER_TYPE, 'Debit'),
+    (TRANSFER_TRANSFER_TYPE, 'Transfer'),
+)

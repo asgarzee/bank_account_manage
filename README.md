@@ -1,13 +1,15 @@
-Simple Implementation of logistics flow
+Simple Implementation of Bank Transactions
 ---
 
-We have separate APIs for all the states so that if we want to add more functionalities to each states in future.
+This has APIs to create, list and retrieve bank accounts and perform money transfer across accounts and also debit and credit into an account.
+
+It is using JWT for authentication
 
 #### Requirements
 ```sh
 1. Python 3.5
-2. Django 2.0
-3. PostgresSQL 9.6
+2. Django 1.11
+3. MySQL
 ```
 
 ### Create Virtual Environment
@@ -22,7 +24,11 @@ pip install -r requirements/base.txt
 ### Run Migrations
 ```sh
 python manage.py migrate
-python manage.py loaddata initial_data
+```
+
+### Create Superuser
+```sh
+python manage.py createsuperuser
 ```
 
 ### Run Server
